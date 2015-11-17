@@ -27,7 +27,7 @@ public class MainAOP implements SortExecutor {
 
     public static Integer[] makeArray() {
         List<Integer> list = new ArrayList<>();
-        for (Integer i = 0; i < 10; i++) {/*Integer.MAX_VALUE*/
+        for (int i = 0; i < 10; i++) {/*Integer.MAX_VALUE*/
             list.add(i);
         }
         Collections.shuffle(list);

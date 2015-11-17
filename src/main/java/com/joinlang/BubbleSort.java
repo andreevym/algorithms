@@ -12,16 +12,16 @@ public class BubbleSort {
         }
         array = inArray;
 
-        for (Integer passWholeArray = array.length - 1; passWholeArray > 1 ; passWholeArray--) {
-            for (Integer mark = 0; mark < passWholeArray; mark++) {
+        for (int passWholeArray = array.length - 1; passWholeArray > 1 ; passWholeArray--) {
+            for (int mark = 0; mark < passWholeArray; mark++) {
                 if (array[mark] > array[mark + 1]) {
-                    move(mark, mark + 1);
+                    swap(mark, mark + 1);
                 }
             }
         }
     }
 
-    private static void move(Integer currentElement, Integer nextElement) {
+    private static void swap(Integer currentElement, Integer nextElement) {
         Integer temp = array[currentElement];
         array[currentElement] = array[nextElement];
         array[nextElement] = temp;

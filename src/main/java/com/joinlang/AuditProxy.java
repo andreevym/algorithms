@@ -29,7 +29,7 @@ public class AuditProxy implements InvocationHandler {
         } catch (InvocationTargetException e) {
             throw e.getTargetException();
         } catch (Exception e) {
-            throw new RuntimeException("unexpected invocation exception: " + e.getMessage());
+            throw new Throwable("unexpected invocation exception: " + e.getMessage());
         } finally {
             Instant end = Instant.now();
             System.out.println("The nanoseconds : " + Duration.between(start, end).getNano());
