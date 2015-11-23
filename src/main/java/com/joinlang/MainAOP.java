@@ -1,15 +1,12 @@
 package com.joinlang;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class MainAOP implements SortExecutor {
 
-    public static void main(String[] args) {
-        System.out.println("This is bubble sort O(N*N)");
+    public static final int array_length = 10;
 
+    public static void main(String[] args) {
         // WithOUT Proxy
         AuditProxy.apply(null, e -> new MainAOP().execute());
 
@@ -19,21 +16,10 @@ public class MainAOP implements SortExecutor {
     }
 
     public boolean execute() {
-        Integer[] array = makeArray();
+        int[] array = ArrayUtils.makeArray(array_length);
         BubbleSort.sort(array);
-        System.out.println("after: " + Arrays.toString(array));
+        System.out.println("array after sorting: " + Arrays.toString(array));
         return true;
-    }
-
-    public static Integer[] makeArray() {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {/*Integer.MAX_VALUE*/
-            list.add(i);
-        }
-        Collections.shuffle(list);
-        Integer[] array = new Integer[list.size()];
-        System.out.println("before: " + list);
-        return list.toArray(array);
     }
 
 
