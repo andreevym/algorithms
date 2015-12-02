@@ -1,4 +1,4 @@
-package com.joinlang;
+package com.joinlang.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -20,6 +20,14 @@ public class AuditProxy implements InvocationHandler {
         return Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj.getClass().getInterfaces(), new AuditProxy(obj));
     }
 
+    public static <T, V> T apply(V args, Function<V, T> function) {
+        Instant start = Instant.now();
+        T result = function.apply(args);
+        Instant end = Instant.now();
+        System.out.println("The nanoseconds : " + Duration.between(start, end).getNano());
+        return result;
+    }
+
     @Override
     public Object invoke(Object proxy, Method m, Object[] args) throws Throwable {
         Object result;
@@ -36,12 +44,4 @@ public class AuditProxy implements InvocationHandler {
         }
         return result;
     }
-
-    public static <T, V> T apply(V args, Function<V, T> function) {
-        Instant start = Instant.now();
-        T result = function.apply(args);
-        Instant end = Instant.now();
-        System.out.println("The nanoseconds : " + Duration.between(start, end).getNano());
-        return result;
-    }
- }
+}

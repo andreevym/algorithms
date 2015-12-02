@@ -1,17 +1,21 @@
 package com.joinlang;
 
+import com.joinlang.proxy.AuditProxy;
+import com.joinlang.proxy.SortExecutor;
+import com.joinlang.sort.BubbleSort;
+import com.joinlang.sort.Sort;
+import com.joinlang.utils.ArrayUtils;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class MainAOP implements SortExecutor {
 
-    public static final int array_length = 100;
+    private static final int ARRAY_LENGTH = 4;
 
     public static void main(String[] args) {
         // WithOUT Proxy
-        AuditProxy.apply(null, e -> new MainAOP().execute());
+        //AuditProxy.apply(null, e -> new MainAOP().execute());
 
         // With Proxy
         SortExecutor main = (SortExecutor) AuditProxy.newInstance(new MainAOP());
@@ -35,11 +39,9 @@ public class MainAOP implements SortExecutor {
         arrayList.trimToSize();
     }
 
-    public boolean execute() {
-        int[] array = ArrayUtils.makeArray(array_length);
-        SelectionSort.sort(array);
-        return true;
+    public void execute() {
+        List<Integer> array = ArrayUtils.makeIntegerArray(ARRAY_LENGTH);
+        Sort<Integer> triage = new BubbleSort<>();
+        triage.sort(array);
     }
-
-
 }
